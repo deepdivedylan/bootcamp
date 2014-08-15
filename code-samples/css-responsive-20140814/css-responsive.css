@@ -1,0 +1,86 @@
+#outerContainer
+{
+    display: table;
+    table-layout: fixed;
+}
+
+#rowContainer
+{
+    display: table-row;
+}
+
+#rowContainer aside, section
+{
+    display: table-cell;
+}
+
+#placeholder
+{
+    min-width: 1px;
+}
+
+header
+{
+    background-color: red;
+    width: 100%;
+}
+
+aside
+{
+    background-color: blue;
+    width: 25%;
+}
+
+section
+{
+    background-color: lime;
+    width: 75%;
+}
+
+footer
+{
+    background-color: orange;
+    clear: both;
+    width: 100%;
+}
+
+@media (max-width: 643px)
+{
+
+    #outerContainer
+    {
+        display: block;
+    }
+
+    #rowContainer
+    {
+        display: block;
+    }
+
+    #rowContainer aside, section
+    {
+        display: block;
+    }
+    
+    header
+    {
+        border: 1px solid transparent;
+    }
+
+    aside
+    {
+        width: 100%;
+        border: 1px solid transparent;
+    }
+
+    section
+    {
+        width: 100%;
+        border: 1px solid transparent;
+    }
+
+    footer
+    {
+        border: 1px solid transparent;
+    }
+}
