@@ -2,7 +2,7 @@
 -- drop the tables in REVERSE order in which they appear below
 -- NEVER, EVER, BLOODY *EVER* use this on live data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 DROP TABLE IF EXISTS orderLine;
-DROP TABLE IF EXISTS order;
+DROP TABLE IF EXISTS orderHeader;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS profile;
 DROP TABLE IF EXISTS user;
@@ -46,30 +46,30 @@ CREATE TABLE product (
     PRIMARY KEY(productId)
 );
 
-CREATE TABLE order (
-    orderId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+CREATE TABLE orderHeader (
+    orderHeaderId INT UNSIGNED AUTO_INCREMENT NOT NULL,
     -- profileId is included here for the 1-to-n relation with profile
     profileId INT UNSIGNED,
     orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     shipDate DATETIME,
-    PRIMARY KEY(orderId),
+    PRIMARY KEY(orderHeaderId),
     -- index the foreign key and declare it
     INDEX(profileId),
     FOREIGN KEY(profileId) REFERENCES profile(profileId)
 );
 
--- an intersection table for the m-to-n relation with product and order
+-- an intersection table for the m-to-n relation with product and orderHeader
 CREATE TABLE orderLine (
-    orderId INT UNSIGNED NOT NULL,
+    orderHeaderId INT UNSIGNED NOT NULL,
     productId INT UNSIGNED NOT NULL,
     quantity INT UNSIGNED NOT NULL,
     discount DECIMAL(9, 2),
     -- index the foreign keys individually
-    INDEX(orderId),
+    INDEX(orderHeaderId),
     INDEX(productId),
     -- declare the foreign keys
-    FOREIGN KEY(orderId) REFERENCES order(orderId),
+    FOREIGN KEY(orderHeaderId) REFERENCES orderHeader(orderHeaderId),
     FOREIGN KEY(productId) REFERENCES product(productId),
     -- now create a composite (two dimensional) primary key
-    PRIMARY KEY(orderId, productId)
+    PRIMARY KEY(orderHeaderId, productId)
 );
