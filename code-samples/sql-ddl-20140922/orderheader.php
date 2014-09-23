@@ -1,16 +1,16 @@
 <?php
 /**
- * mySQL Enabled Order
+ * mySQL Enabled Order Header
  *
- * This is a mySQL enabled container for Order data at a typical eCommcerce site. It can easily be extended to include more fields as necessary.
+ * This is a mySQL enabled container for OrderHeader data at a typical eCommcerce site. It can easily be extended to include more fields as necessary.
  *
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
-class Order {
+class OrderHeader {
     /**
-     * order id for the Order; this is the primary key
+     * order id for the OrderHeader; this is the primary key
      **/
-    private $orderId;
+    private $orderHeaderId;
     /**
      * profile id of the person ordering; this is a foreign key to Profile
      * @see Profile
@@ -26,18 +26,18 @@ class Order {
     private $shipDate;
     
     /**
-     * constructor for Order
+     * constructor for OrderHeader
      *
-     * @param mixed $newOrderId order id (or null if new object)
+     * @param mixed $newOrderHeaderId order header id (or null if new object)
      * @param string $newProfileId profile id
      * @param mixed $newOrderDate order date
      * @param mixed $newShipDate ship date
      * @throws UnexpectedValueException when a parameter is of the wrong type
      * @throws RangeException when a parameter is invalid
      **/
-    public function __construct($newOrderId, $newProfileId, $newOrderDate, $newShipDate) {
+    public function __construct($newOrderHeaderId, $newProfileId, $newOrderDate, $newShipDate) {
         try {
-            $this->setOrderId($newOrderId);
+            $this->setOrderHeaderId($newOrderHeaderId);
             $this->setProfileId($newProfileId);
             $this->setOrderDate($newOrderDate);
             $this->setShipDate($newShipDate);
@@ -51,41 +51,41 @@ class Order {
     }
     
      /**
-     * gets the value of order id
+     * gets the value of order header id
      *
-     * @return mixed order id (or null if new object)
+     * @return mixed order header id (or null if new object)
      **/
-    public function getOrderId() {
-        return($this->orderId);
+    public function getOrderHeaderId() {
+        return($this->orderHeaderId);
     }
     
     /**
-     * sets the value of order id
+     * sets the value of order header id
      *
-     * @param mixed $newOrderId order id (or null if new object)
+     * @param mixed $newOrderHeaderId order header id (or null if new object)
      * @throws UnexpectedValueException if not an integer or null
-     * @throws RangeException if order id isn't positive
+     * @throws RangeException if order header id isn't positive
      **/
-    public function setOrderId($newOrderId) {
-        // zeroth, set allow the order id to be null if a new object
-        if($newOrderId === null) {
-            $this->orderId = null;
+    public function setOrderHeaderId($newOrderHeaderId) {
+        // zeroth, set allow the order header id to be null if a new object
+        if($newOrderHeaderId === null) {
+            $this->orderHeaderId = null;
             return;
         }
         
         // first, ensure the order id is an integer
-        if(filter_var($newOrderId, FILTER_VALIDATE_INT) === false) {
-            throw(new UnexpectedValueException("order id $newOrderId is not numeric"));
+        if(filter_var($newOrderHeaderId, FILTER_VALIDATE_INT) === false) {
+            throw(new UnexpectedValueException("order header id $newOrderHeaderId is not numeric"));
         }
         
         // second, convert the order id to an integer and enforce it's positive
-        $newOrderId = intval($newOrderId);
-        if($newOrderId <= 0) {
-            throw(new RangeException("order id $newOrderId is not positive"));
+        $newOrderHeaderId = intval($newOrderHeaderId);
+        if($newOrderHeaderId <= 0) {
+            throw(new RangeException("order header id $newOrderHeaderId is not positive"));
         }
         
         // finally, take the order id out of quarantine and assign it
-        $this->orderId = $newOrderId;
+        $this->orderHeaderId = $newOrderHeaderId;
     }
     
     /**

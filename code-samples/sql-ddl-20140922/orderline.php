@@ -5,13 +5,14 @@
  * This is a mySQL enabled container for OrderLine data at a typical eCommcerce site. It can easily be extended to include more fields as necessary.
  *
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @see OrderHeader
  **/
 class OrderLine {
     /**
-     * order id of the parent order; this is a foreign key to Order
-     * @see Profile
+     * order header id of the parent order; this is a foreign key to Order
+     * @see OrderHeader
      **/
-    private $orderId;
+    private $orderHeaderId;
     /**
      * product id of the product ordered; this is a foreign key to Product
      * @see Profile
@@ -29,16 +30,16 @@ class OrderLine {
     /**
      * constructor for OrderLine
      *
-     * @param int $newOrderId order id
+     * @param int $newOrderHeaderId order header id
      * @param int $newProductId product id
      * @param int $newQuantity quantity
      * @param float $newDiscount discount amount
      * @throws UnexpectedValueException when a parameter is of the wrong type
      * @throws RangeException when a parameter is invalid
      **/
-    public function __construct($newOrderId, $newProductId, $newQuantity, $newDiscount) {
+    public function __construct($newOrderHeaderId, $newProductId, $newQuantity, $newDiscount) {
         try {
-            $this->setOrderId($newOrderId);
+            $this->setOrderHeaderId($newOrderHeaderId);
             $this->setProductId($newProductId);
             $this->setQuantity($newQuantity);
             $this->setDiscount($newDiscount);
@@ -52,36 +53,36 @@ class OrderLine {
     }
     
     /**
-     * gets the value of order id
+     * gets the value of order header id
      *
-     * @return int order id
+     * @return int order header id
      **/
-    public function getOrderId() {
-        return($this->orderId);
+    public function getOrderHeaderId() {
+        return($this->orderHeaderId);
     }
     
     /**
-     * sets the value of order id
+     * sets the value of order header id
      *
-     * @param int $newOrderId order id
+     * @param int $newOrderHeaderId order header id
      * @throws UnexpectedValueException if not an integer or null
-     * @throws RangeException if order id isn't positive
+     * @throws RangeException if order header id isn't positive
      **/
-    public function setOrderId($newOrderId) {
+    public function setOrderHeaderId($newOrderHeaderId) {
         
         // first, ensure the order id is an integer
-        if(filter_var($newOrderId, FILTER_VALIDATE_INT) === false) {
-            throw(new UnexpectedValueException("order id $newOrderId is not numeric"));
+        if(filter_var($newOrderHeaderId, FILTER_VALIDATE_INT) === false) {
+            throw(new UnexpectedValueException("order header id $newOrderHeaderId is not numeric"));
         }
         
-        // second, convert the order id to an integer and enforce it's positive
-        $newOrderId = intval($newOrderId);
-        if($newOrderId <= 0) {
-            throw(new RangeException("order id $newOrderId is not positive"));
+        // second, convert the order header id to an integer and enforce it's positive
+        $newOrderHeaderId = intval($newOrderHeaderId);
+        if($newOrderHeaderId <= 0) {
+            throw(new RangeException("order header id $newOrderHeaderId is not positive"));
         }
         
-        // finally, take the order id out of quarantine and assign it
-        $this->orderId = $newOrderId;
+        // finally, take the order header id out of quarantine and assign it
+        $this->orderHeaderId = $newOrderHeaderId;
     }
     
     /**
